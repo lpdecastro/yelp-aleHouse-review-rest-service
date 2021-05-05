@@ -3,9 +3,12 @@ RESTful API for Milwaukee Ale House Restaurant Review Using Yelp and Google Visi
 
 
 **Curl Command:**
+```curl
 curl --location --request GET 'localhost:8080/yelp/aleHouse/reviews?locale=en_PH'
+```
 
 **Response:**
+```json
 {
     "reviews": [
         {
@@ -87,3 +90,4 @@ curl --location --request GET 'localhost:8080/yelp/aleHouse/reviews?locale=en_PH
         }
     ]
 }
+```
