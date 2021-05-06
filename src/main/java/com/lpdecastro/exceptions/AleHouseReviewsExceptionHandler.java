@@ -42,16 +42,16 @@ import lombok.extern.slf4j.Slf4j;
 public class AleHouseReviewsExceptionHandler
         extends ResponseEntityExceptionHandler {
 
-    private static final String LOG_TEMPLATE = "{}::{}() - {}";
+    private static final String LOGGER_TEMPLATE = "{}::{}() - {}";
 
     private static final String KEY_EXCEPTION = "exception";
 
     @ExceptionHandler(AleHouseReviewsException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ResponseEntity<Object> handleAleHouseReviewsException(AleHouseReviewsException ex) {
-        log.error(LOG_TEMPLATE, getClass().getSimpleName(),
+        LOGGER.error(LOGGER_TEMPLATE, getClass().getSimpleName(),
                 Thread.currentThread().getStackTrace()[1].getMethodName(), ex);
-
+        
         return getResponseEntity(HttpStatus.BAD_REQUEST, ex.getMessage());
     }
 
@@ -63,7 +63,7 @@ public class AleHouseReviewsExceptionHandler
 
         final Set<ConstraintViolation<?>> violations = ex.getConstraintViolations();
         for (final ConstraintViolation<?> error : violations) {
-            log.debug(error.getPropertyPath() + ": " + error.getMessage());
+            LOGGER.debug(error.getPropertyPath() + ": " + error.getMessage());
 
             String field = "";
             final Iterator<Node> iter = error.getPropertyPath().iterator();
@@ -84,7 +84,7 @@ public class AleHouseReviewsExceptionHandler
     @ExceptionHandler(Exception.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public ResponseEntity<Object> handleAllExceptions(Exception ex, WebRequest request) {
-        log.error(LOG_TEMPLATE, getClass().getSimpleName(),
+        LOGGER.error(LOGGER_TEMPLATE, getClass().getSimpleName(),
                 Thread.currentThread().getStackTrace()[1].getMethodName(), ex);
 
         return getResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR, ex.getLocalizedMessage());
@@ -93,7 +93,7 @@ public class AleHouseReviewsExceptionHandler
     @Override
     protected ResponseEntity<Object> handleHttpMediaTypeNotSupported(
             HttpMediaTypeNotSupportedException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
-        log.error(LOG_TEMPLATE, getClass().getSimpleName(),
+        LOGGER.error(LOGGER_TEMPLATE, getClass().getSimpleName(),
                 Thread.currentThread().getStackTrace()[1].getMethodName(), ex);
 
         return getResponseEntity(status, ex.getLocalizedMessage(), headers);
@@ -102,7 +102,7 @@ public class AleHouseReviewsExceptionHandler
     @Override
     protected ResponseEntity<Object> handleHttpMessageNotReadable(
             HttpMessageNotReadableException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
-        log.error(LOG_TEMPLATE, getClass().getSimpleName(),
+        LOGGER.error(LOGGER_TEMPLATE, getClass().getSimpleName(),
                 Thread.currentThread().getStackTrace()[1].getMethodName(), ex);
 
         return getResponseEntity(status, ex.getLocalizedMessage(), headers);
@@ -111,7 +111,7 @@ public class AleHouseReviewsExceptionHandler
     @Override
     protected ResponseEntity<Object> handleHttpRequestMethodNotSupported(
             HttpRequestMethodNotSupportedException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
-        log.error(LOG_TEMPLATE, getClass().getSimpleName(),
+        LOGGER.error(LOGGER_TEMPLATE, getClass().getSimpleName(),
                 Thread.currentThread().getStackTrace()[1].getMethodName(), ex);
 
         return getResponseEntity(status, ex.getLocalizedMessage(), headers);
@@ -120,7 +120,7 @@ public class AleHouseReviewsExceptionHandler
     @Override
     protected ResponseEntity<Object> handleHttpMediaTypeNotAcceptable(HttpMediaTypeNotAcceptableException ex,
             HttpHeaders headers, HttpStatus status, WebRequest request) {
-        log.error(LOG_TEMPLATE, getClass().getSimpleName(),
+        LOGGER.error(LOGGER_TEMPLATE, getClass().getSimpleName(),
                 Thread.currentThread().getStackTrace()[1].getMethodName(), ex);
         return getResponseEntity(status, ex.getLocalizedMessage(), headers);
     }
@@ -128,7 +128,7 @@ public class AleHouseReviewsExceptionHandler
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(
             MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
-        log.error(LOG_TEMPLATE, getClass().getSimpleName(),
+        LOGGER.error(LOGGER_TEMPLATE, getClass().getSimpleName(),
                 Thread.currentThread().getStackTrace()[1].getMethodName(), ex);
 
         final ErrorResponseDto response = new ErrorResponseDto(
@@ -141,7 +141,7 @@ public class AleHouseReviewsExceptionHandler
     @Override
     protected ResponseEntity<Object> handleMissingServletRequestParameter(
             MissingServletRequestParameterException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
-        log.error(LOG_TEMPLATE, getClass().getSimpleName(),
+        LOGGER.error(LOGGER_TEMPLATE, getClass().getSimpleName(),
                 Thread.currentThread().getStackTrace()[1].getMethodName(), ex);
 
         return getResponseEntity(status, ex.getLocalizedMessage(), headers);
@@ -150,7 +150,7 @@ public class AleHouseReviewsExceptionHandler
     @Override
     protected ResponseEntity<Object> handleMissingServletRequestPart(
             MissingServletRequestPartException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
-        log.error(LOG_TEMPLATE, getClass().getSimpleName(),
+        LOGGER.error(LOGGER_TEMPLATE, getClass().getSimpleName(),
                 Thread.currentThread().getStackTrace()[1].getMethodName(), ex);
 
         return getResponseEntity(status, ex.getLocalizedMessage(), headers);
@@ -159,7 +159,7 @@ public class AleHouseReviewsExceptionHandler
     @Override
     protected ResponseEntity<Object> handleNoHandlerFoundException(
             NoHandlerFoundException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
-        log.error(LOG_TEMPLATE, getClass().getSimpleName(),
+        LOGGER.error(LOGGER_TEMPLATE, getClass().getSimpleName(),
                 Thread.currentThread().getStackTrace()[1].getMethodName(), ex);
 
         return getResponseEntity(status, ex.getLocalizedMessage(), headers);
@@ -168,7 +168,7 @@ public class AleHouseReviewsExceptionHandler
     @Override
     protected ResponseEntity<Object> handleTypeMismatch(
             TypeMismatchException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
-        log.error(LOG_TEMPLATE, getClass().getSimpleName(),
+        LOGGER.error(LOGGER_TEMPLATE, getClass().getSimpleName(),
                 Thread.currentThread().getStackTrace()[1].getMethodName(), ex);
 
         return getResponseEntity(status, ex.getLocalizedMessage(), headers);
@@ -188,7 +188,7 @@ public class AleHouseReviewsExceptionHandler
 
     private void setFieldErrors(BindingResult bindingResult, ErrorResponseDto response) {
         for (final FieldError fieldError : bindingResult.getFieldErrors()) {
-            log.debug(fieldError + ": " + fieldError.getDefaultMessage());
+            LOGGER.debug(fieldError + ": " + fieldError.getDefaultMessage());
 
             final String field = fieldError.getField();
             final String objectName = fieldError.getObjectName();

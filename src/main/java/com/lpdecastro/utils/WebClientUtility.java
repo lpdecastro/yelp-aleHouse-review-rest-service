@@ -49,7 +49,7 @@ public class WebClientUtility {
                     .join();
 
         } catch (WebClientResponseException | CompletionException | CancellationException ex) {
-            log.error(LOG_TEMPLATE, getClass().getSimpleName(),
+            LOGGER.error(LOG_TEMPLATE, getClass().getSimpleName(),
                     Thread.currentThread().getStackTrace()[1].getMethodName(), ex);
 
             throw new AleHouseReviewsException("Call to external webservice failed.");
@@ -66,7 +66,7 @@ public class WebClientUtility {
                     .join();
 
         } catch (WebClientResponseException | CompletionException | CancellationException ex) {
-            log.error(LOG_TEMPLATE, getClass().getSimpleName(),
+            LOGGER.error(LOG_TEMPLATE, getClass().getSimpleName(),
                     Thread.currentThread().getStackTrace()[1].getMethodName(), ex);
 
             throw new AleHouseReviewsException("Call to external webservice failed.");
